@@ -1,0 +1,128 @@
+MONGODB:-
+install mongodb  and  mongoshell
+https://www.youtube.com/watch?v=opRihx7RMZQ
+
+MONGODB COMPASS:-
+//firstly connect to it; by clicking connect option.
+create a database (initally even a collection )
+
+click on insert data in the collection
+//add more than one document by use of array
+
+COMMANDS:-
+use db : switch to db database (exist or not exist is ok . If not exist when you add collection it will create                          for you)
+- cls : clear screen
+-show dbs : show all database
+- show collections : show all collections in current database
+- db : show your current database name
+- help : list all option command
+- name = "yoshi" : create variable in shell 
+- exit : stop shell
+- mongosh : start shell
+- db.collection_name:to open a collection
+-db.collection_name.insertOne() :- to insert a single document
+-db.collection_name.insertMany([]):-to insert many document
+
+
+FINDING DOCUMENT:-
+db.collection_name.find()     //gives first 20 only
+db.collection_name.find({filter})   //gives particularly
+db.collection_name.find({filter},{particular_field:1})     //gives particular fields only ...1 means present
+db.collection_name.find({},{particular_field:1})           //gives all with particular field
+db.collection_name.findOne({_id:})                         //find a single document
+
+METHOD CHAINING:-
+db.collection_name.find().count()                         //amount of document we would get back
+db.collection_name.find({filter}).count()                 //similarly for filter
+db.collection_name.find().limit(no)                       //limits the documents
+db.collection_name.find().sort({filter:1})                  //sorts ...1 means asc   -1 means desc
+
+operator in mongodb are denoted by $  and even add them in {}
+
+
+$eq
+Matches values that are equal to a specified value.
+
+$gt
+Matches values that are greater than a specified value.
+
+$gte
+Matches values that are greater than or equal to a specified value.
+
+$in
+Matches any of the values specified in an array.
+
+$lt
+Matches values that are less than a specified value.
+
+$lte
+Matches values that are less than or equal to a specified value.
+
+$ne
+Matches all values that are not equal to a specified value.
+
+$nin
+Matches none of the values specified in an array.
+
+
+
+Logical
+
+- Name
+= Description
+
+$and
+Joins query clauses with a logical AND returns all documents that match the conditions of both clauses.
+
+$not
+Inverts the effect of a query expression and returns documents that do not match the query expression.
+
+$nor
+Joins query clauses with a logical NOR returns all documents that fail to match both clauses.
+
+$or
+Joins query clauses with a logical OR returns all documents that match the conditions of either clause.
+db.collection_name.find({  filter: {$gt: value} })
+
+
+Examples:
+db.books.find({  rating:{$gt:7}  })
+db.books.find({  rating:{$gt:7},author:"rohit"  })
+db.books.find({$or:[{rating:7} ,  {rating:9}]}) 
+db.books.find({$or:[{pages:{$gt:300}} ,  {pages:{$gt:400}}]}) 
+
+
+$in and $nin:-(is /not going to be within a certain range of value)
+ex:db.books.find({rating:{$in:[7,8,9]} }) 
+
+
+querying array
+db.books.find({genres:"fantasy"})
+db.books.find({genres:["fantasy"]})             //for exact match
+db.books.find({genres:["fantasy","magic"]})     //for exact match  
+db.books.find({genres:{$all:["fantasy","scifi"]}})                    //all specified element are in array
+db.books.find({"reviews.name":"luigi"})                    //nested   ...when used dot notation , add in ""
+
+
+
+
+EXPORT YOUR DATA FROM YOUR COLLECTION USING the symbol(before view)    and import it as file
+
+DELETING DOCUMENT:-
+db.books.deleteOne({_id:7896786756565645454})       //based on id
+db.books.deleteMany({author:"rohit"})
+
+
+UPDATING DOCUMENT:-
+db.books.updateOne({_id:},{$set:{rating:8,page:360}   })
+db.books.updateMany({author:"rohit"},{$set:{author:"rohitt"}})
+db.books.updateOne({_id:},{$inc:{page:2}   })          //increment
+db.books.updateOne({_id:},{$inc:{page:-2}   })        //decrement
+b.books.updateOne({_id:},{$pull:{genres:"fantasy"}   })          //pull or delete from array
+b.books.updateOne({_id:},{$push:{genres:"fantasy"}   })           //push an element in array
+b.books.updateOne({_id:},{$push:{genres:{$each:["1","2"]}}   })     //push multiple 
+
+
+
+MONGODB DRIVER:-
+to connect wth different programming language use different driver ... check from Resources->Drivers
