@@ -1,0 +1,4 @@
+firstly  : npm init    //going to initialze new node project for us
+npm install express    // use express
+//after all process
+npm install mongodb
