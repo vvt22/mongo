@@ -6,3 +6,12 @@ npm install mongodb
 
 //after installing node mongodb driver 
 connect to mongodb using the driver
+
+
+
+find() explanation :
+it returns a cursor (object points to set of document)
+cursor has method like:toArray ,forEach
+toArray fetches all document cursor points to put them in array
+both methods gets the document in terms of batches  
+... like forEach iterate through all element in one batch then next batch  
