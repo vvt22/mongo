@@ -1,9 +1,11 @@
+//regarding pagination check in txt file
 const express = require("express");
 const { getDb, connectToDb } = require("./db");
 const { ObjectId } = require("mongodb");
 
 // init app & middleware
 const app = express();
+app.use(express.json());
 
 // db connection
 let db;
@@ -18,13 +20,18 @@ connectToDb((err) => {
 });
 
 // routes
-app.use(express.json());
 app.get("/books", (req, res) => {
+  // current page
+  const page = req.query.p || 0;
+  const booksPerPage = 3;
+
   let books = [];
 
   db.collection("books")
     .find()
     .sort({ author: 1 })
+    .skip(page * booksPerPage)
+    .limit(booksPerPage)
     .forEach((book) => books.push(book))
     .then(() => {
       res.status(200).json(books);
@@ -48,6 +55,7 @@ app.get("/books/:id", (req, res) => {
     res.status(500).json({ error: "Could not fetch the document" });
   }
 });
+
 app.post("/books", (req, res) => {
   const book = req.body;
 
@@ -60,6 +68,7 @@ app.post("/books", (req, res) => {
       res.status(500).json({ err: "Could not create new document" });
     });
 });
+
 app.delete("/books/:id", (req, res) => {
   if (ObjectId.isValid(req.params.id)) {
     db.collection("books")
@@ -74,6 +83,7 @@ app.delete("/books/:id", (req, res) => {
     res.status(500).json({ error: "Could not delete document" });
   }
 });
+
 app.patch("/books/:id", (req, res) => {
   const updates = req.body;
 

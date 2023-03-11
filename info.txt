@@ -15,3 +15,10 @@ cursor has method like:toArray ,forEach
 toArray fetches all document cursor points to put them in array
 both methods gets the document in terms of batches  
 ... like forEach iterate through all element in one batch then next batch  
+
+
+
+PAGINATION:-
+//to limit the view to see documents
+//using query parameter in the endpoint url
+ex:www.localhost:3000/books/?p=1
