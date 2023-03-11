@@ -22,3 +22,14 @@ PAGINATION:-
 //to limit the view to see documents
 //using query parameter in the endpoint url
 ex:www.localhost:3000/books/?p=1
+
+INDEXS:-
+scen:indexes allow database server to perform specific query to find document much more efficiently
+WITHOUT NEEDING TO EXAMINE THE ENTIRE COLLECTION
+
+.explain('executionStats')   //to see the statistics of the query
+ex:   db.books.find({rating:8}).explain('executionStats')
+.createIndex({})             //to create a index ..filter has 1(asc) -1(desc)
+db.books.createIndex({rating: 1})   //here rating is taken as index
+.getIndexes()                        //to get all indexes
+.dropIndex({})                      //delete
