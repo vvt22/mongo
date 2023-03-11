@@ -18,6 +18,7 @@ connectToDb((err) => {
 });
 
 // routes
+app.use(express.json());
 app.get("/books", (req, res) => {
   let books = [];
 
